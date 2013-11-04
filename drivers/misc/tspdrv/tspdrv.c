@@ -39,16 +39,16 @@
 #include <mach/gpio.h>
 #include <asm/uaccess.h>
 #include <asm/atomic.h>
-#include <tspdrv.h>
+#include "tspdrv.h"
 #include <linux/delay.h>
 
 static int g_nTimerPeriodMs = 5; /* 5ms timer by default. This variable could be used by the SPI.*/
 
 static bool g_bNackDetected = false;
 
-#include <ImmVibeSPI.c>
+#include "ImmVibeSPI.c"
 #if defined(VIBE_DEBUG) && defined(VIBE_RECORD)
-#include <tspdrvRecorder.c>
+#include "tspdrvRecorder.c"
 #endif
 
 /* Device name and version information */
@@ -85,11 +85,11 @@ static int g_nMajor = 0;
 #endif
 
 /* Needs to be included after the global variables because they use them */
-#include <tspdrvOutputDataHandler.c>
+#include "tspdrvOutputDataHandler.c"
 #ifdef CONFIG_HIGH_RES_TIMERS
-    #include <VibeOSKernelLinuxHRTime.c>
+    #include "VibeOSKernelLinuxHRTime.c"
 #else
-    #include <VibeOSKernelLinuxTime.c>
+    #include "VibeOSKernelLinuxTime.c"
 #endif
 
 asmlinkage void _DbgOut(int level, const char *fmt,...)
